@@ -1,9 +1,10 @@
 import { Sequelize } from 'sequelize';
-import dotenv from 'dotenv';
 
-dotenv.config();
+require('dotenv').config({path:`${__dirname}/.env`});
 
-const sequelize = new Sequelize(process.env.DATABASE_URL as string, {
+const DB = process.env.DATABASE_URL?.replace('PASSWORD',process.env?.DATABASE_PASSWORD ?? '') ?? '';
+
+const sequelize = new Sequelize(DB, {
   dialect: 'postgres',
 });
 
