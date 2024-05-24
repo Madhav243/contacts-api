@@ -1,8 +1,10 @@
 import { Request, Response, NextFunction } from 'express';
 import AppError from '../utils/appError';
+import { errorMessages } from '../utils/messageConstants';
+import { StatusCodeEnum } from '../utils/statusCodesEnum';
 
 export const notFoundHandler = (req: Request, res: Response, next: NextFunction) => {
-    res.status(404).json({ message: 'Resource not found' });
+    res.status(StatusCodeEnum.NOT_FOUND).json({ message: errorMessages.notFound });
 };
 
 export const globalErrorHandler = (err: Error, req: Request, res: Response, next: NextFunction) => {
@@ -11,5 +13,5 @@ export const globalErrorHandler = (err: Error, req: Request, res: Response, next
         return res.status(err.statusCode).json({message : err.message})
     }
 
-    res.status(500).json({ message: 'Internal Server Error' });
+    res.status(StatusCodeEnum.INTERNAL_SERVER_ERROR).json({ message: errorMessages.internalServerError });
 };

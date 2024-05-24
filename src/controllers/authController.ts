@@ -1,11 +1,12 @@
 import { Request, Response, NextFunction } from "express";
 import { AuthManager } from "../managers/authManager";
+import { StatusCodeEnum } from "../utils/statusCodesEnum";
 
 export class AuthController {
   static async register(req: Request, res: Response, next: NextFunction) {
     try {
       const user = await AuthManager.register(req.body);
-      res.status(201).json(user);
+      res.status(StatusCodeEnum.SUCCESS).json(user);
     } catch (error) {
       next(error);
     }
@@ -15,7 +16,7 @@ export class AuthController {
     try {
       const { phoneNumber, password } = req.body;
       const { user, token } = await AuthManager.login(phoneNumber, password);
-      res.status(200).json({ user, token });
+      res.status(StatusCodeEnum.SUCCESS).json({ user, token });
     } catch (error) {
       next(error);
     }
