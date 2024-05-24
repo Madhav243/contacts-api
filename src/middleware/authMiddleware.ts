@@ -2,12 +2,14 @@ import { Request, Response, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
 import { UserDAL } from '../dal/userDal';
 import AppError from '../utils/appError';
+import { StatusCodeEnum } from '../utils/statusCodesEnum';
+import { errorMessages } from '../utils/messageConstants';
 
 export const authMiddleware = async (req: Request, res: Response, next: NextFunction) => {
   const authHeader = req.headers.authorization;
 
   if (!authHeader || !authHeader.startsWith('Bearer ')) {
-    return next(new AppError('No token provided',401));
+    return next(new AppError(errorMessages.noTokenProvided,StatusCodeEnum.UNAUTHORIZED));
   }
 
   const token = authHeader.split(' ')[1];
@@ -17,12 +19,12 @@ export const authMiddleware = async (req: Request, res: Response, next: NextFunc
     const user = await UserDAL.findById(decoded.id);
 
     if (!user) {
-      return next(new AppError('User not found',401));
+      return next(new AppError(errorMessages.userNotFound,StatusCodeEnum.UNAUTHORIZED));
     }
 
     req.user = user;
     next();
   } catch (err) {
-    next(new AppError('Invalid token',401));
+    next(new AppError(errorMessages.invalidToken,StatusCodeEnum.UNAUTHORIZED));
   }
 };
