@@ -6,5 +6,6 @@ export const errorMessages = {
     invalidToken : 'Invalid token',
     notFound : 'Resource not found',
     internalServerError : 'Internal Server Error',
-    tooManyRequests : 'Too many requests from this IP, please try again later' 
+    tooManyRequests : 'Too many requests from this IP, please try again later',
+    databaseError : 'Database error'
 }

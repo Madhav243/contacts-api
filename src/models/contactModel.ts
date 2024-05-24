@@ -1,7 +1,15 @@
 import { DataTypes, Model } from "sequelize";
 import sequelize from "../database";
 
-export class Contact extends Model {
+export interface ContactInterface {
+  id? : number,
+  name : string,
+  phoneNumber : string,
+  userId : number,
+  isSpam : boolean
+}
+
+export class Contact extends Model implements ContactInterface{
   id!: number;
   name!: string;
   phoneNumber!: string;

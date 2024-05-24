@@ -2,15 +2,15 @@ import { DataTypes, Model } from "sequelize";
 import sequelize from "../database";
 
 export interface UserInterface {
-  id: number,
+  id ? : number,
   name : string,
-  phoneNumber : string
-  password : string
-  email ?: string
+  phoneNumber : string,
+  email ?: string,
+  password : string,
   isSpam : boolean
 }
 
-export class User extends Model implements UserInterface  {
+export class User extends Model implements UserInterface{
   id!: number;
   name!: string;
   phoneNumber!: string;
