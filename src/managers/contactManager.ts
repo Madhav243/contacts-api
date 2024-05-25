@@ -13,7 +13,6 @@ export class ContactManager {
         userId : userid,
         isSpam : false
       } as Omit<ContactInterface,'id'>
-      console.log('Manager-: ',contact)
       return ContactDal.createContact(contact);
     } catch (error) {
       throw new AppError(

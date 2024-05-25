@@ -8,7 +8,7 @@ import { User } from "../models";
 import { UserInterface } from "../models/userModel";
 
 export class AuthManager {
-  static async register(userData: Omit<UserInterface, "id">) {
+  static async register(userData: Omit<UserInterface, "id">) : Promise<User> {
     try {
       const existingUser = await UserDAL.findByPhoneNumber(
         userData.phoneNumber
@@ -28,7 +28,7 @@ export class AuthManager {
         ...userData,
         password: hashedPassword,
       });
-      return user.toJSON();
+      return user.toJSON() as User;
     } catch (error) {
       throw new AppError(
         `${errorMessages.databaseError}-: ${error}`,
