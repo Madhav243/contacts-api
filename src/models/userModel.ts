@@ -17,6 +17,11 @@ export class User extends Model implements UserInterface{
   email?: string;
   password!: string;
   isSpam!: boolean;
+  public toJSON(): object {
+    const values = { ...this.get() };
+    delete values.password;
+    return values;
+  }
 }
 
 User.init(

@@ -5,15 +5,15 @@ import { errorMessages } from "../utils/messageConstants";
 import { StatusCodeEnum } from "../utils/statusCodesEnum";
 
 export class ContactManager {
-  static async addContact(userId: number, contactDetails: Partial<ContactInterface>) {
+  static async addContact(userid: number, contactDetails: Partial<ContactInterface>) {
     try {
       const contact = {
         name : contactDetails.name,
         phoneNumber : contactDetails.phoneNumber,
-        userId : userId,
+        userId : userid,
         isSpam : false
       } as Omit<ContactInterface,'id'>
-
+      console.log('Manager-: ',contact)
       return ContactDal.createContact(contact);
     } catch (error) {
       throw new AppError(
@@ -35,14 +35,4 @@ export class ContactManager {
     }
   }
 
-  static async markContactAsSpam(phoneNumber: string) {
-    try {
-      return await ContactDal.markContactAsSpam(phoneNumber);
-    } catch (error) {
-      throw new AppError(
-        `${errorMessages.databaseError}-: ${error}`,
-        StatusCodeEnum.INTERNAL_SERVER_ERROR
-      );
-    }
-  }
 }

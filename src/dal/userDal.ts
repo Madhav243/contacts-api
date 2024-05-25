@@ -13,12 +13,8 @@ export class UserDAL {
     return await User.findByPk(id);
   }
 
-  static async markUserAsSpam(phoneNumber: string) {
-    const user = await User.findOne({ where: { phoneNumber } });
-    if (user) {
-      user.isSpam = true;
-      await user.save();
-    }
-    return user;
+  static async markUserAsSpam(user : User) : Promise<User> {
+    user.isSpam = true
+    return await user.save()
   }
 }

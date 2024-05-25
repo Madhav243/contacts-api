@@ -14,22 +14,8 @@ export class ContactController {
 
   static async addContact(req: Request, res: Response, next: NextFunction) {
     try {
-      await ContactManager.addContact(req.user.id, req.body);
-      res.status(StatusCodeEnum.SUCCESS).send('Success');
-    } catch (error) {
-      next(error);
-    }
-  }
-
-  static async markContactAsSpam(
-    req: Request,
-    res: Response,
-    next: NextFunction
-  ) {
-    try {
-      const { phoneNumber } = req.body;
-      const contact = await ContactManager.markContactAsSpam(phoneNumber);
-      res.status(StatusCodeEnum.SUCCESS).json(contact);
+      const contact = await ContactManager.addContact(req.user.id, req.body);
+      res.status(StatusCodeEnum.SUCCESS).send(contact);
     } catch (error) {
       next(error);
     }

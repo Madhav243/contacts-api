@@ -28,7 +28,7 @@ export class AuthManager {
         ...userData,
         password: hashedPassword,
       });
-      return user;
+      return user.toJSON();
     } catch (error) {
       throw new AppError(
         `${errorMessages.databaseError}-: ${error}`,
@@ -63,7 +63,7 @@ export class AuthManager {
         }
       );
 
-      return { user, token };
+      return { token };
     } catch (error) {
       throw new AppError(
         `${errorMessages.databaseError}-: ${error}`,

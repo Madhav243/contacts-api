@@ -15,8 +15,8 @@ export class AuthController {
   static async login(req: Request, res: Response, next: NextFunction) {
     try {
       const { phoneNumber, password } = req.body;
-      const { user, token } = await AuthManager.login(phoneNumber, password);
-      res.status(StatusCodeEnum.SUCCESS).json({ user, token });
+      const { token } = await AuthManager.login(phoneNumber, password);
+      res.status(StatusCodeEnum.SUCCESS).json({ token });
     } catch (error) {
       next(error);
     }

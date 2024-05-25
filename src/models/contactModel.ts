@@ -5,7 +5,7 @@ export interface ContactInterface {
   id? : number,
   name : string,
   phoneNumber : string,
-  userId : number,
+  userId : number | null,
   isSpam : boolean
 }
 
@@ -34,7 +34,7 @@ Contact.init(
     },
     userId: {
       type: DataTypes.INTEGER,
-      allowNull: false,
+      allowNull: true,
     },
     isSpam: {
       type: DataTypes.BOOLEAN,
