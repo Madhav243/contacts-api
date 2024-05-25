@@ -1,7 +1,7 @@
-import { User } from '../models/userModel';
+import { User, UserInterface } from '../models/userModel';
 
 export class UserDAL {
-  static async create(userData: { name: string; phoneNumber: string; email?: string; password: string }) {
+  static async create(userData: Omit<UserInterface,'id'>) {
     return await User.create(userData);
   }
 
@@ -11,5 +11,10 @@ export class UserDAL {
 
   static async findById(id: number) {
     return await User.findByPk(id);
+  }
+
+  static async markUserAsSpam(user : User) : Promise<User> {
+    user.isSpam = true
+    return await user.save()
   }
 }
